@@ -22,6 +22,4 @@ The main script can be load with ```source("main.r")``` and the function ```buil
 4. runs a spectral clustering to create groups of elements
 5. runs the multidimensional scaling to create a 2D plot of the similarity of the text with the labels
 
-For exporting the plot the command ```common.pdf("outputfilename")``` can be used
-
  

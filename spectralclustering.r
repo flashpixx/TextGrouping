@@ -1,4 +1,4 @@
-source("dependency.r")
+source( "dependency.r", local = attach( NULL ) )
 
 # https://jangorecki.gitlab.io/data.table/library/kernlab/html/specc.html
 # http://kokkodis.blogspot.de/2013/02/spectral-clustering-with-eigengap.html

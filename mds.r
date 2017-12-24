@@ -1,4 +1,4 @@
-source("dependency.r")
+source( "dependency.r", local = attach( NULL ) )
 
 # Multi-dimensional scaling
 # https://en.wikipedia.org/wiki/Multidimensional_scaling
