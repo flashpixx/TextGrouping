@@ -10,14 +10,12 @@ analysis.spectralclustering <- function( p_graph )
 {
     common.dependencies("igraph", "zoo")
 
-    l_laplacian <- igraph::laplacian_matrix( p_graph, normalized = TRUE );
-    l_eigen <- eigen( l_laplacian )
+    l_spectral <- igraph::embed_laplacian_matrix( p_graph, no = igraph::vcount( p_graph ) - 1 )
+    l_eigengap = zoo::rollapply( l_spectral$D, 2,  function(x) { return(x[1]-x[2]) })
 
-    assign("dist", igraph::as_adj( p_graph, attr = "weight" ), envir = globalenv())
-    assign("eig", l_eigen, envir = globalenv())
-    assign("graph", p_graph, envir = globalenv())
-    assign("laplacian", l_laplacian, envir = globalenv())
+    #l_laplacian <- igraph::laplacian_matrix( p_graph, normalized = TRUE );
+    #l_eigen <- eigen( l_laplacian )
 
-    l_clusternumber <- length( l_eigen$values) - nnet::which.is.max(  zoo::rollapply( l_eigen$values, 2,  function(x) { return(x[1]-x[2]) }) );
+    l_clusternumber <- length( l_eigengap ) - nnet::which.is.max( l_eigengap );
     print(l_clusternumber)
 }
