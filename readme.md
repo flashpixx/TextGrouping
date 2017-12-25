@@ -6,7 +6,7 @@ This R script contains a set of text and data mining algorithms:
 * [Multidimensional Scaling](https://en.wikipedia.org/wiki/Multidimensional_scaling)
 * [Spectral Clustering](https://en.wikipedia.org/wiki/Spectral_clustering)
 
-For input a text file can be used with the following definition
+For input a text or text file can be used with the following definition
 
 ```
 <label1>: <any text>
@@ -14,7 +14,7 @@ For input a text file can be used with the following definition
 ...
 ```
 
-The main script can be load with ```source("main.r")``` and the function ```build.neighbourhood( "inputfile.txt" )``` can be run immediatly. The optional argument ```stopwordlanguage``` ist set to ``èn``` bei default. The script does the following steps:
+A working Shiny application can be run from [https://flashpixx.shinyapps.io/TextMining-Grouping/](https://flashpixx.shinyapps.io/TextMining-Grouping/) or manually started wih the command ```source("main.r")```. The application does the following steps:
 
 1. cleaning input text, stopword reduction, remove punctation and numbers
 2. runs the normalized compression distance to analyse similarity of the text input

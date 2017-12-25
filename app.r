@@ -33,10 +33,14 @@ shinyApp(
     server = function( input, output ) {
         observeEvent( input$view, {
             output$neighborhood <- renderPlot({
-                l_result <- build.neighbourhood( input$data, input$language )
-
-                plot( l_result$points[,1], l_result$points[,2], type="n", ylab="", xlab="", xaxt="n", yaxt="n" )
-                text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=0.6 )
+                tryCatch({
+                    l_result <- build.neighbourhood( input$data, input$language )
+                    plot( l_result$points[,1], l_result$points[,2], type="n", ylab="", xlab="", xaxt="n", yaxt="n" )
+                    text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=0.6 )
+                },
+                error = function(e) {
+                    showNotification( paste(e), duration = 2 )
+                } )
             })
         } )
     }
