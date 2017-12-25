@@ -1,5 +1,5 @@
 # check library dependencies
-common.dependencies <- function(...)
+common.dependencies <- function( ...)
 {
     # check for required packages
     for ( i in c(...) )

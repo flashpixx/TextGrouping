@@ -1,3 +1,8 @@
+library( "tm" )
+library( "SnowballC" )
+library( "zoo" )
+library( "apcluster" )
+
 source( "analysis/neighbourhood.r", local = TRUE )
 
 shinyApp(
@@ -12,7 +17,7 @@ shinyApp(
             ),
             column(9,
                    wellPanel(
-                       textAreaInput("data", "Input Labels and Text", "Label 1: Any text without linebreaks\nLabel 2: Another text without linebreaks", rows = 12)
+                       textAreaInput("data", "Input Labels and Text", "Label 1: Any text without linebreaks\n#comment line\nLabel 2: Another text without linebreaks", rows = 12)
                    )
             )
         ),
@@ -35,6 +40,9 @@ shinyApp(
             output$neighborhood <- renderPlot({
                 tryCatch({
                     l_result <- build.neighbourhood( input$data, input$language )
+
+                    assign( "data", l_result, env = globalenv() )
+
                     plot( l_result$points[,1], l_result$points[,2], type="n", ylab="", xlab="", xaxt="n", yaxt="n" )
                     text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=0.6 )
                 },

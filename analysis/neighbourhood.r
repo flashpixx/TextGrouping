@@ -1,13 +1,9 @@
-source( "common/dependency.r", local = TRUE )
 source( "analysis/ncd.r", local = TRUE )
-source( "analysis/mds.r", local = TRUE )
-source( "analysis/spectralclustering.r", local = TRUE )
 
+# calculate neighbourhood of text data
 build.neighbourhood <- function( inputfile, stopwordlanguage = "english" )
 {
-    common.dependencies( "tm", "SnowballC", "igraph" )
-
-    # read csv file (first column name, second column keywords)
+    # read csv (first column name, second column keywords)
     l_data <- readr::read_delim( inputfile, ":", escape_double = FALSE, col_names = FALSE, na = "empty", comment = "#", trim_ws = TRUE)
     l_data <- l_data[ !(l_data$X2 == ""), ]
 
@@ -20,22 +16,29 @@ build.neighbourhood <- function( inputfile, stopwordlanguage = "english" )
     l_feature = lapply( l_feature, tm::removePunctuation )
     l_feature = lapply( l_feature, function(x) { return( tm::removeWords( x, tm::stopwords( stopwordlanguage )) ) } )
 
-    # calculate with normalized compression distance the dissimilarity matrix and build graph
-    l_graph <- igraph::graph_from_adjacency_matrix( outer( l_feature, l_feature, Vectorize( analysis.ncd, vectorize.args=list( "p_first", "p_second" )) ), diag = FALSE, weighted = TRUE, mode = "upper" )
+    # calculate with normalized compression distance the dissimilarity matrix
+    l_dissimilarity <- outer( l_feature, l_feature, Vectorize( analysis.ncd, vectorize.args=list( "first", "second" )) )
 
-    # run spectal clustering for finding groups
-    #analysis.spectralclustering( l_graph )
+    # run multidimensional scaling to build 2D projection
+    #
+    # https://en.wikipedia.org/wiki/Multidimensional_scaling
+    # https://www.statmethods.net/advstats/mds.html
+    l_mds <- cmdscale( l_dissimilarity, eig=TRUE, k=2 )$points
+
+    # run affinity propagation to find data groups
+    #
+    # https://www.rdocumentation.org/packages/apcluster/versions/1.4.4/topics/apcluster-package
+    # https://cran.r-project.org/web/packages/apcluster/vignettes/apcluster.pdf
 
     return(
         structure(
             class = "neighbourhood",
             list(
-                points = analysis.mds( l_graph )$points,
-                labels = l_labels
+                points = l_mds,
+                labels = l_labels,
+                dissimilarity = l_dissimilarity,
+                cluster = apcluster::apcluster( apcluster::negDistMat(r=2), l_mds )
             )
         )
     )
-    # visualization
-    #plot( l_mds$points[,1], l_mds$points[,2], type="n", ylab="", xlab="", xaxt="n", yaxt="n" )
-    #text( l_mds$points[,1], l_mds$points[,2], l_labels, cex=0.6 )
 }

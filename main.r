@@ -1,4 +1,4 @@
 source( "common/dependency.r", local = TRUE )
 
-common.dependencies( "shiny" )
-shiny::runApp(".")
+common.dependencies( "shiny", "tm", "SnowballC", "zoo", "apcluster" )
+shiny::runApp()
