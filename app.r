@@ -40,11 +40,9 @@ shinyApp(
             output$neighborhood <- renderPlot({
                 tryCatch({
                     l_result <- build.neighbourhood( input$data, input$language )
-
                     #assign( "data", l_result, env = globalenv() )
 
                     apcluster::plot( l_result$cluster, l_result$points, xaxt="n", yaxt="n" )
-                    #plot( l_result$points[,1], l_result$points[,2], type="n", ylab="", xlab="", xaxt="n", yaxt="n" )
                     text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=0.6 )
                 },
                 error = function(e) {

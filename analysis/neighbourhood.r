@@ -36,7 +36,6 @@ build.neighbourhood <- function( inputfile, stopwordlanguage = "english" )
             list(
                 points = l_mds,
                 labels = l_labels,
-                dissimilarity = l_dissimilarity,
                 cluster = apcluster::apcluster( apcluster::negDistMat(r=2), l_mds )
             )
         )
