@@ -1,5 +1,7 @@
-source( "dependency.r", local = attach( NULL ) )
+source( "common/dependency.r", local = TRUE )
 
+# Spectral Clustering
+#
 # https://jangorecki.gitlab.io/data.table/library/kernlab/html/specc.html
 # http://kokkodis.blogspot.de/2013/02/spectral-clustering-with-eigengap.html
 # https://www.r-bloggers.com/k-means-clustering-in-r/

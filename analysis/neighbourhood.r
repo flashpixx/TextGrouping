@@ -1,7 +1,7 @@
-source( "dependency.r", local = attach( NULL ) )
-source( "ncd.r", local = attach( NULL ) )
-source( "mds.r", local = attach( NULL ) )
-source( "spectralclustering.r", local = attach( NULL ) )
+source( "common/dependency.r", local = TRUE )
+source( "analysis/ncd.r", local = TRUE )
+source( "analysis/mds.r", local = TRUE )
+source( "analysis/spectralclustering.r", local = TRUE )
 
 build.neighbourhood <- function( inputfile, stopwordlanguage = "english" )
 {

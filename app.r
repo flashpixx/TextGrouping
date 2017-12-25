@@ -1,4 +1,4 @@
-source( "neighbourhood.r", local = attach( NULL ) )
+source( "analysis/neighbourhood.r", local = TRUE )
 
 shinyApp(
 

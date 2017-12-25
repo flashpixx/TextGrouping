@@ -1,4 +1,5 @@
 # Normalized Compression Distance
+#
 # http://en.wikipedia.org/wiki/Normalized_Compression_Distance
 analysis.ncd <- function(
     p_first,
