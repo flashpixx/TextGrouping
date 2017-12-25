@@ -30,7 +30,7 @@ shinyApp(
         hr(),
         fluidRow(
             column(12,
-                   plotOutput("neighborhood")
+                   plotOutput("neighborhood", width="100%", height="1000px")
             )
         )
     ),
