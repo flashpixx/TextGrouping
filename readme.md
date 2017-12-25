@@ -14,7 +14,7 @@ For input a text or text file can be used with the following definition
 ...
 ```
 
-A working Shiny application can be run from [https://flashpixx.shinyapps.io/TextMining-Grouping/](https://flashpixx.shinyapps.io/TextMining-Grouping/) or manually started wih the command ```source("main.r")```. The application does the following steps:
+A working [Shiny application](https://flashpixx.shinyapps.io/TextMining-Grouping/) can run online within a browser or manually started wih the command ```source("main.r")```. The application does the following steps:
 
 1. cleaning input text, stopword reduction, remove punctation and numbers
 2. runs the normalized compression distance to analyse similarity of the text input
