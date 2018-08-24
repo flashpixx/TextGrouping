@@ -43,7 +43,7 @@ shinyApp(
                     #assign( "data", l_result, env = globalenv() )
 
                     apcluster::plot( l_result$cluster, l_result$points, xaxt="n", yaxt="n" )
-                    text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=0.6 )
+                    text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=2 )
                 },
                 error = function(e) {
                     showNotification( paste(e), duration = 2 )
