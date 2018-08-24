@@ -64,9 +64,11 @@ RUN apt-get update \
 RUN R -e 'update.packages(ask=FALSE, checkBuilt=TRUE)'
 
 RUN apt-get update && apt-get install -y git libxml2-dev cmake
-RUN git clone https://github.com/masc/TextMining-Grouping
-
+COPY *.r TextMining-Grouping/
+COPY analysis/*.r TextMining-Grouping/analysis/
+COPY common/*.r TextMining-Grouping/common/
 WORKDIR TextMining-Grouping
+
 RUN Rscript installdeps.r
 
 EXPOSE 8080
