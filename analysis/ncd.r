@@ -8,11 +8,11 @@ analysis.ncd <- function(
   if ( first == second )
       return(0)
 
-  l_first <- length( memCompress( first, type=c(c("bzip2")) ) )
-  l_second <- length( memCompress(second, type=c(c("bzip2")) ) )
+  l_first <- length( zstdCompress( first, level = 22 ) )
+  l_second <- length( zstdCompress( second, level = 22 ) )
 
-  l_firstsecond = length( memCompress( paste(first, second, sep=""), type=c(c("bzip2"))) )
-  l_secondfirst = length( memCompress( paste(second, first, sep=""), type=c(c("bzip2"))) )
+  l_firstsecond = length( zstdCompress( paste( first, second, sep="" ), level = 22 ) )
+  l_secondfirst = length( zstdCompress( paste( second, first, sep="" ), level = 22 ) )
 
   return(
       ( 0.5 * ( l_firstsecond + l_secondfirst ) - min( l_first, l_second ) ) /
