@@ -2,7 +2,6 @@ library( "tm" )
 library( "SnowballC" )
 library( "zoo" )
 library( "apcluster" )
-library( "zstdr" )
 
 source( "analysis/neighbourhood.r", local = TRUE )
 
