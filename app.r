@@ -2,6 +2,7 @@ library( "tm" )
 library( "SnowballC" )
 library( "zoo" )
 library( "apcluster" )
+library( "viridis" )
 
 source( "analysis/neighbourhood.r", local = TRUE )
 source( "analysis/somwine.r", local = TRUE )
@@ -75,7 +76,7 @@ shinyApp(
             output$som <- renderPlot({
                 tryCatch({
                     l_result <- som.wine( input$winedata )
-                    plot( l_result, type = "property", property = getCodes(l_result)[,3], main = "", palette.name = rainbow, tricolor, heatkey = FALSE )
+                    plot( l_result, type = "property", property = getCodes(l_result)[,3], main = "", palette.name = viridis::plasma, tricolor, heatkey = FALSE )
                 },
                 error = function(e) {
                     showNotification( paste(e), duration = 2 )
