@@ -16,12 +16,14 @@ option_list = list(
               help="bind to port", metavar="integer" ),
   make_option( c("-m", "--mode"), type="character", default="all", 
               help="modes to display (all|som|text) [default= %default]", metavar="character" )
-); 
+) 
 
-opt_parser = OptionParser( option_list = option_list );
-opt = parse_args( opt_parser );
+opt_parser = OptionParser( option_list = option_list )
+opt = parse_args( opt_parser )
 
-ui = common.ui( opt$mode );
+print( opt )
+
+ui = common.ui( opt$mode )
 
 shiny::runApp(
 	shinyApp(

@@ -71,5 +71,4 @@ WORKDIR TextMining-Grouping
 
 RUN Rscript installdeps.r
 
-EXPOSE 8080
-ENTRYPOINT ["Rscript", "main.r", "8080"]
+ENTRYPOINT ["Rscript", "main.r"]
