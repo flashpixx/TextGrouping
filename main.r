@@ -1,9 +1,58 @@
 source( "installdeps.r", local = TRUE )
 
-args <- commandArgs(trailingOnly = TRUE)
+library( "tm" )
+library( "SnowballC" )
+library( "zoo" )
+library( "apcluster" )
+library( "viridis" )
+library( "optparse" )
 
-if (length(args)==1) {
-  shiny::runApp(host = "0.0.0.0", port = as.numeric(args[1]))
-} else if (length(args)==0) {
-  shiny::runApp(host = "0.0.0.0")
-}
+source( "analysis/neighbourhood.r", local = TRUE )
+source( "analysis/somwine.r", local = TRUE )
+source( "common/ui.r", local = TRUE )
+
+option_list = list(
+  make_option(c("-p", "--port"), type="integer", default=8080, 
+              help="bind to port", metavar="integer"),
+  make_option(c("-m", "--mode"), type="character", default="all", 
+              help="modes to display (all|som|text) [default= %default]", metavar="character")
+); 
+
+opt_parser = OptionParser(option_list=option_list);
+opt = parse_args(opt_parser);
+
+ui = common.ui( opt$mode );
+
+shiny::runApp(
+	shinyApp(
+	    ui = ui,
+	    server = function( input, output ) {
+	        observeEvent( input$viewtext, {
+	            output$neighborhood <- renderPlot({
+	                tryCatch({
+	                    l_result <- build.neighbourhood( input$textdata, input$language )
+	                    apcluster::plot( l_result$cluster, l_result$points, xaxt="n", yaxt="n", cex=input$opt.cex )
+	                    text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=input$opt.cex )
+	                },
+	                error = function(e) {
+	                    showNotification( paste(e), duration = 2 )
+	                } )
+	            })
+	        } )
+	        observeEvent( input$viewwine, {
+	            output$som <- renderPlot({
+	                tryCatch({
+	                    l_result <- som.wine( input$winedata )
+	                    plot( l_result, type = "property", property = getCodes(l_result)[,3], main = "", palette.name = viridis::plasma, tricolor, heatkey = FALSE )
+	                },
+	                error = function(e) {
+	                    showNotification( paste(e), duration = 2 )
+	                } )
+	            })
+	        } )
+	    }
+	),
+	host = "0.0.0.0",
+	port = as.numeric(opt$port)
+)
+
