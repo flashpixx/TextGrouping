@@ -12,14 +12,14 @@ source( "analysis/somwine.r", local = TRUE )
 source( "common/ui.r", local = TRUE )
 
 option_list = list(
-  make_option(c("-p", "--port"), type="integer", default=8080, 
-              help="bind to port", metavar="integer"),
-  make_option(c("-m", "--mode"), type="character", default="all", 
-              help="modes to display (all|som|text) [default= %default]", metavar="character")
+  make_option( c("-p", "--port"), type="integer", default=8080, 
+              help="bind to port", metavar="integer" ),
+  make_option( c("-m", "--mode"), type="character", default="all", 
+              help="modes to display (all|som|text) [default= %default]", metavar="character" )
 ); 
 
-opt_parser = OptionParser(option_list=option_list);
-opt = parse_args(opt_parser);
+opt_parser = OptionParser( option_list = option_list );
+opt = parse_args( opt_parser );
 
 ui = common.ui( opt$mode );
 
@@ -53,6 +53,6 @@ shiny::runApp(
 	    }
 	),
 	host = "0.0.0.0",
-	port = as.numeric(opt$port)
+	port = as.numeric( opt$port )
 )
 
