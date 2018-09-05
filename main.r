@@ -23,11 +23,9 @@ opt = parse_args( opt_parser )
 
 print( opt )
 
-ui = common.ui( opt$mode )
-
 shiny::runApp(
 	shinyApp(
-	    ui = ui,
+	    ui = common.ui( opt$mode ),
 	    server = function( input, output ) {
 	        observeEvent( input$viewtext, {
 	            output$neighborhood <- renderPlot({
