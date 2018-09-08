@@ -15,7 +15,9 @@ option_list = list(
   make_option( c("-p", "--port"), type="integer", default=8080, 
               help="bind to port", metavar="integer" ),
   make_option( c("-m", "--mode"), type="character", default="all", 
-              help="modes to display (all|som|text) [default= %default]", metavar="character" )
+              help="modes to display (all|som|text) [default= %default]", metavar="character" ),
+  make_option( c("-s", "--somdim"), type="integer", default=35, 
+              help="som dimension", metavar="integer" )
 ) 
 
 opt_parser = OptionParser( option_list = option_list )
@@ -42,8 +44,8 @@ shiny::runApp(
 	        observeEvent( input$viewwine, {
 	            output$som <- renderPlot({
 	                tryCatch({
-	                    l_result <- som.wine( input$winedata )
-	                    plot( l_result, type = "property", property = getCodes(l_result)[,3], main = "", palette.name = viridis::plasma, tricolor, heatkey = FALSE )
+	                    l_result <- som.wine( input$winedata, opt$somdim )
+	                    plot( l_result, type = "property", property = getCodes(l_result)[,3], main = "", palette.name = viridis::plasma, tricolor, heatkey = FALSE, shape = "straight", border = NA )
 	                },
 	                error = function(e) {
 	                    showNotification( paste(e), duration = 2 )

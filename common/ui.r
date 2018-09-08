@@ -47,7 +47,7 @@ common.ui <- function( modes )
 	                ),
 	                column(7,
 	                    plotOutput("som", height="1000px"),
-	                    style='margin-top: -60px;'
+	                    style='margin-top:-15%;'
 	                )
 	            )
 	        )
