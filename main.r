@@ -27,7 +27,7 @@ print( opt )
 
 shiny::runApp(
 	shinyApp(
-	    ui = common.ui( opt$mode ),
+	    ui = common.ui( opt ),
 	    server = function( input, output ) {
 	        observeEvent( input$viewtext, {
 	            output$neighborhood <- renderPlot({
@@ -44,7 +44,7 @@ shiny::runApp(
 	        observeEvent( input$viewwine, {
 	            output$som <- renderPlot({
 	                tryCatch({
-	                    l_result <- som.wine( input$winedata, opt$somdim )
+	                    l_result <- som.wine( input )
 	                    plot( l_result, type = "property", property = getCodes(l_result)[,3], main = "", palette.name = viridis::plasma, tricolor, heatkey = FALSE, shape = "straight", border = NA )
 	                },
 	                error = function(e) {
