@@ -40,7 +40,7 @@ common.ui <- function( opt )
 	            fluidRow(
 	                column(5,
 	                	wellPanel(
-	                        sliderInput(inputId = "opt.somdim", label = "SOM Dimensions", min = 2, max = 39, step = 1, value = opt$somdim)
+	                        sliderInput(inputId = "opt.somdim", label = "SOM (x,y) Grid Dimensions", min = 2, max = 39, step = 1, value = opt$somdim)
 	                    ),
 	                    wellPanel(
 	                        textAreaInput("winedata", "Input CSV", "", rows = 30)
@@ -63,7 +63,7 @@ common.ui <- function( opt )
 	            fluidRow(
 	                column(5,
 	                	wellPanel(
-	                        sliderInput(inputId = "opt.somdim", label = "SOM Dimensions", min = 2, max = 39, step = 1, value = opt$somdim)
+	                        sliderInput(inputId = "opt.somdim", label = "SOM (x,y) Grid Dimension", min = 2, max = 39, step = 1, value = opt$somdim)
 	                    ),
 	                    wellPanel(
 	                        textAreaInput("winedata", "Input CSV", "", rows = 30)
