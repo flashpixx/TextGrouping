@@ -3,5 +3,4 @@
 !*.md
 !*.r
 !Dockerfile
-!Dockerfile.arm
 .Rproj.user
