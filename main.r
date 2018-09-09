@@ -13,11 +13,11 @@ source( "common/ui.r", local = TRUE )
 
 option_list = list(
   make_option( c("-p", "--port"), type="integer", default=8080, 
-              help="bind to port", metavar="integer" ),
-  make_option( c("-m", "--mode"), type="character", default="all", 
-              help="modes to display (all|som|text) [default= %default]", metavar="character" ),
+              help="bind to port [default = %default]", metavar="integer" ),
+  make_option( "--shownodename", action="store_true", default=FALSE, 
+              help="display node name in title (helpful to distiguish app running in different docker containers [default = %default]", metavar="character" ),
   make_option( c("-s", "--somdim"), type="integer", default=35, 
-              help="som dimension", metavar="integer" )
+              help="som dimension [default = %default]", metavar="integer" )
 ) 
 
 opt_parser = OptionParser( option_list = option_list )
