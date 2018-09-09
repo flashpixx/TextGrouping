@@ -17,13 +17,15 @@ option_list = list(
   make_option( "--shownodename", action="store_true", default=FALSE, 
               help="display node name in title (helpful to distiguish app running in different docker containers) [default = %default]", metavar="character" ),
   make_option( c("-s", "--somdim"), type="integer", default=35, 
-              help="som dimension [default = %default]", metavar="integer" )
+              help="som dimension [default = %default]", metavar="integer" ),
+  make_option( c("-i", "--somiterations"), type="integer", default=100, 
+              help="som iterations [default = %default]", metavar="integer" )
 ) 
 
 opt_parser = OptionParser( option_list = option_list )
 opt = parse_args( opt_parser )
 
-print( opt )
+quartzFonts(firasans = c("Fira Sans Book", "Fira Sans Bold", "Fira Sans Italic", "Fira Sans Bold Italic"))
 
 shiny::runApp(
 	shinyApp(
@@ -32,6 +34,7 @@ shiny::runApp(
 	        observeEvent( input$viewtext, {
 	            output$neighborhood <- renderPlot({
 	                tryCatch({
+	                	par(family='firasans')
 	                    l_result <- build.neighbourhood( input$textdata, input$language )
 	                    apcluster::plot( l_result$cluster, l_result$points, xaxt="n", yaxt="n", cex=input$opt.cex )
 	                    text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=input$opt.cex )
@@ -42,16 +45,24 @@ shiny::runApp(
 	            })
 	        } )
 	        observeEvent( input$viewwine, {
-	            output$som <- renderPlot({
-	                tryCatch({
-	                    l_result <- som.wine( input )
+	            tryCatch({
+	                l_result <- som.wine( input )
+	            	output$som <- renderPlot({
+	            		par( family='firasans' )
 	                    plot( l_result, type = "property", property = getCodes(l_result)[,3], main = "", palette.name = viridis::plasma, tricolor, heatkey = FALSE, shape = "straight", border = NA )
-	                },
+	            	})
+	                output$count <- renderPlot({
+	                	par( family='firasans' )
+	                	plot( l_result, type = "count", main="Node Count", palette.name = viridis::plasma, shape = "straight", border = NA )
+	                })
+	                output$changes <- renderPlot({
+	                	par( family='firasans' )
+	                	plot( l_result, type = "changes", main="Training Progress" )
+	                }) },
 	                error = function(e) {
 	                    showNotification( paste(e), duration = 2 )
-	                } )
-	            })
-	        } )
+	            	})
+	        	} )
 	    }
 	),
 	host = "0.0.0.0",

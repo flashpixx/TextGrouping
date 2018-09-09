@@ -12,17 +12,13 @@ common.ui <- function( opt )
 	                       ),
 	                       wellPanel(
 	                            sliderInput(inputId = "opt.cex", label = "Point Label Size", min = 0, max = 2, step = 0.25, value = 1)
-	                       )
+	                       ),
+	                       actionButton("viewtext", "Visualize")
 	                ),
 	                column(9,
 	                       wellPanel(
-	                           textAreaInput("textdata", "Input Labels and Text", "Label 1: Any text without linebreaks\n#comment line\nLabel 2: Another text without linebreaks", rows = 12)
+	                           textAreaInput("textdata", "Input Abstracts", rows = 12)
 	                       )
-	                )
-	            ),
-	            fluidRow(
-	                column(12,
-	                   actionButton("viewtext", "Visualize")
 	                )
 	            ),
 	            hr(),
@@ -37,18 +33,29 @@ common.ui <- function( opt )
 	        fluidPage(
 	            titlePanel( "Wine Data Example" ),
 	            fluidRow(
-	                column(5,
+	                column(3,
 	                	wellPanel(
 	                        sliderInput(inputId = "opt.somdim", label = "SOM (x,y) Grid Dimensions", min = 2, max = 39, step = 1, value = opt$somdim)
 	                    ),
 	                    wellPanel(
-	                        textAreaInput("winedata", "Input CSV", "", rows = 30)
+	                        sliderInput(inputId = "opt.somiterations", label = "SOM Iterations", min = 1, max = 150, step = 1, value = opt$somiterations)
 	                    ),
 	                    actionButton("viewwine", "Visualize")
 	                ),
-	                column(7,
-	                    plotOutput("som", height="1000px"),
-	                    style='margin-top:-15%;'
+	                column(9,
+	                    wellPanel(
+	                        textAreaInput("winedata", "Input CSV", "", rows = 13)
+	                    )
+	                )
+	            ),
+	            hr(),
+	            fluidRow(
+	                column(9,
+	                    plotOutput("som", height="1000px")
+	                ),
+	                column(3,
+	                	plotOutput("count", height="600px"),
+	                	plotOutput("changes", height="300px")
 	                )
 	            )
 	        )

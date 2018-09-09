@@ -61,6 +61,11 @@ RUN apt-get update \
 	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
 	&& rm -rf /var/lib/apt/lists/*
 
+# add FiraSans
+RUN mkdir -p /usr/share/fonts/truetype/FiraSans \
+	&& wget -O /usr/share/fonts/truetype/FiraSans/FiraSans-Regular.ttf https://github.com/bBoxType/FiraSans/blob/master/Fira_Sans_4_3/Fonts/Fira_Sans_TTF_4301/Normal/Roman/FiraSans-Regular.ttf \
+	&& fc-cache -f -v
+
 RUN R -e 'update.packages(ask=FALSE, checkBuilt=TRUE)'
 
 RUN apt-get update && apt-get install -y git libxml2-dev cmake

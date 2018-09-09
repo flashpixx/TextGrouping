@@ -10,7 +10,7 @@ som.wine <- function( input )
 
     # create som and train
     l_grid <- kohonen::somgrid( xdim=input$opt.somdim, ydim=input$opt.somdim, topo="hexagonal" )
-    l_som <- kohonen::som( l_data, grid = l_grid, rlen = 100, alpha=c(0.05,0.01), keep.data = TRUE )
+    l_som <- kohonen::som( l_data, grid = l_grid, rlen = input$opt.somiterations, alpha=c(0.05,0.01), keep.data = TRUE )
     
     return( l_som )
 }
