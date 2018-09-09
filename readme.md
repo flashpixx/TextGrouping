@@ -2,6 +2,24 @@
 
 This R script contains a set of text and data mining algorithms.
 
+```
+Options:
+	-p INTEGER, --port=INTEGER
+		bind to port [default = 8080]
+
+	--shownodename
+		display node name in title (helpful to distiguish app running in different docker containers) [default = FALSE]
+
+	-s INTEGER, --somdim=INTEGER
+		som dimension [default = 35]
+
+	-i INTEGER, --somiterations=INTEGER
+		som iterations [default = 100]
+
+	-h, --help
+		Show this help message and exit
+```
+
 ## Text Mining
 
 * [Normalized Compression Distance](https://en.wikipedia.org/wiki/Normalized_compression_distance)
@@ -28,21 +46,3 @@ A working [Shiny application](https://flashpixx.shinyapps.io/TextMining-Grouping
 * [Kohonen networks](https://en.wikipedia.org/wiki/Self-organizing_map)
 
 Visualisation of [Wine Data](https://www.kaggle.com/uciml/red-wine-quality-cortez-et-al-2009)
-
-```
-Options:
-	-p INTEGER, --port=INTEGER
-		bind to port [default = 8080]
-
-	--shownodename
-		display node name in title (helpful to distiguish app running in different docker containers) [default = FALSE]
-
-	-s INTEGER, --somdim=INTEGER
-		som dimension [default = 35]
-
-	-i INTEGER, --somiterations=INTEGER
-		som iterations [default = 100]
-
-	-h, --help
-		Show this help message and exit
-```
