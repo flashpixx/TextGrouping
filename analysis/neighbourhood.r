@@ -19,7 +19,7 @@ build.neighbourhood <- function( inputfile, progress, stopwordlanguage = "englis
     l_feature = lapply( l_feature, function(x) { return( tm::removeWords( x, tm::stopwords( stopwordlanguage )) ) } )
 
     # calculate with normalized compression distance the dissimilarity matrix
-    progress$set(message = "Normalized compression distance", value = 0.4)
+    progress$set(message = "Calculate normalized compression distances", value = 0.4)
     l_dissimilarity <- outer( l_feature, l_feature, Vectorize( analysis.ncd, vectorize.args=list( "first", "second" )) )
 
     # run multidimensional scaling to build 2D projection
@@ -33,7 +33,7 @@ build.neighbourhood <- function( inputfile, progress, stopwordlanguage = "englis
     #
     # https://www.rdocumentation.org/packages/apcluster/versions/1.4.4/topics/apcluster-package
     # https://cran.r-project.org/web/packages/apcluster/vignettes/apcluster.pdf
-    progress$set(message = "Affinity propagation", value = 0.2)
+    progress$set(message = "Grouping with affinity propagation", value = 0.2)
     return(
         structure(
             class = "neighbourhood",
