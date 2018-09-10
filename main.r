@@ -32,12 +32,17 @@ shiny::runApp(
 	    ui = common.ui( opt ),
 	    server = function( input, output ) {
 	        observeEvent( input$viewtext, {
+	        	progress <- shiny::Progress$new(style = "notification")
 	            output$neighborhood <- renderPlot({
 	                tryCatch({
 	                	par(family='firasans')
-	                    l_result <- build.neighbourhood( input$textdata, input$language )
+	                	progress$set(message = "Computing data", value = 0)
+	                    l_result <- build.neighbourhood( input$textdata, progress, input$language )
+	                    progress$set(message = "Rendering plots", value = 0.9)
 	                    apcluster::plot( l_result$cluster, l_result$points, xaxt="n", yaxt="n", cex=input$opt.cex )
 	                    text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=input$opt.cex )
+	                    progress$set(message = "Finished", value = 1)
+	                	progress$close()
 	                },
 	                error = function(e) {
 	                    showNotification( paste(e), duration = 2 )
@@ -45,12 +50,16 @@ shiny::runApp(
 	            })
 	        } )
 	        observeEvent( input$viewwine, {
+	        	progress <- shiny::Progress$new(style = "notification")
 	            tryCatch({
-	                l_result <- som.wine( input )
+	            	progress$set(message = "Computing data", value = 0)
+	                l_result <- som.wine( input, progress )
+	                progress$set(message = "Rendering plots", value = 0.8)
 	            	output$som <- renderPlot({
 	            		par( family='firasans' )
 	                    plot( l_result, type = "property", property = getCodes(l_result)[,3], main = "", palette.name = viridis::plasma, tricolor, heatkey = FALSE, shape = "straight", border = NA )
 	            	})
+	            	progress$set(message = "Rendering plots", value = 0.9)
 	                output$count <- renderPlot({
 	                	par( family='firasans' )
 	                	plot( l_result, type = "count", main="Node Count", palette.name = viridis::plasma, shape = "straight", border = NA )
@@ -58,7 +67,9 @@ shiny::runApp(
 	                output$changes <- renderPlot({
 	                	par( family='firasans' )
 	                	plot( l_result, type = "changes", main="Training Progress" )
-	                }) },
+	                })
+	                progress$set(message = "Finished", value = 1)
+	                progress$close() },
 	                error = function(e) {
 	                    showNotification( paste(e), duration = 2 )
 	            	})
