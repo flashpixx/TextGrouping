@@ -42,11 +42,11 @@ shiny::runApp(
 	                    apcluster::plot( l_result$cluster, l_result$points, xaxt="n", yaxt="n", cex=input$opt.cex )
 	                    text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=input$opt.cex )
 	                    progress$set(message = "Finished", value = 1)
-	                	progress$close()
 	                },
 	                error = function(e) {
 	                    showNotification( paste(e), duration = 2 )
 	                } )
+	            progress$close()
 	            })
 	        } )
 	        observeEvent( input$viewwine, {
@@ -68,11 +68,11 @@ shiny::runApp(
 	                	par( family='firasans' )
 	                	plot( l_result, type = "changes", main="Training Progress" )
 	                })
-	                progress$set(message = "Finished", value = 1)
-	                progress$close() },
+	                progress$set(message = "Finished", value = 1) },
 	                error = function(e) {
 	                    showNotification( paste(e), duration = 2 )
 	            	})
+	            progress$close()
 	        	} )
 	    }
 	),
