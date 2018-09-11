@@ -64,9 +64,6 @@ RUN mkdir -p /usr/share/fonts/truetype/FiraSans \
 	&& wget -O /usr/share/fonts/truetype/FiraSans/FiraSans-Regular.ttf https://github.com/bBoxType/FiraSans/blob/master/Fira_Sans_4_3/Fonts/Fira_Sans_TTF_4301/Normal/Roman/FiraSans-Regular.ttf \
 	&& fc-cache -f -v
 
-# speedup R dependency builds, if there are at least 2G ram
-RUN if [ $(grep MemTotal /proc/meminfo | awk '{print $2}') -ge 2000000 ]; then mkdir -p /root/.R && echo "MAKEFLAGS = -j2\nMAKE = make -j2" >> /root/.R/Makevars; fi
-
 RUN R -e 'update.packages(ask=FALSE, checkBuilt=TRUE)'
 
 RUN apt-get update && apt-get install -y git libxml2-dev cmake \
