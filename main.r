@@ -45,9 +45,9 @@ shiny::runApp(
 	                },
 	                error = function(e) {
 	                    showNotification( paste(e), duration = 2 )
-	                } )
-	            progress$close()
+	                })
 	            })
+	            progress$close()
 	        } )
 	        observeEvent( input$viewwine, {
 	        	progress <- shiny::Progress$new(style = "notification")
@@ -73,7 +73,7 @@ shiny::runApp(
 	                    showNotification( paste(e), duration = 2 )
 	            	})
 	            progress$close()
-	        	} )
+	        	})
 	    }
 	),
 	host = "0.0.0.0",
