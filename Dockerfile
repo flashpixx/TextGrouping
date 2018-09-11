@@ -65,7 +65,7 @@ RUN mkdir -p /usr/share/fonts/truetype/FiraSans \
 	&& fc-cache -f -v
 
 # speedup R dependency builds, if there are at least 2G ram
-RUN if [ $(grep MemTotal /proc/meminfo | awk '{print $2}') -ge 2000000 ]; then mkdir -p /root/.R && echo "MAKEFLAGS=\"-j2\"" >> /root/.R/Makevars; fi
+RUN if [ $(grep MemTotal /proc/meminfo | awk '{print $2}') -ge 2000000 ]; then mkdir -p /root/.R && echo "MAKEFLAGS = -j2\nMAKE = make -j2" >> /root/.R/Makevars; fi
 
 RUN R -e 'update.packages(ask=FALSE, checkBuilt=TRUE)'
 
