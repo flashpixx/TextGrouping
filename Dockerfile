@@ -57,10 +57,8 @@ RUN apt-get update \
 	&& ln -s /usr/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
 	&& ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
 	&& ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
-	&& install.r docopt \
-	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
-	&& rm -rf /var/lib/apt/lists/*
-
+	&& install.r docopt
+	
 # add FiraSans
 RUN mkdir -p /usr/share/fonts/truetype/FiraSans \
 	&& wget -O /usr/share/fonts/truetype/FiraSans/FiraSans-Regular.ttf https://github.com/bBoxType/FiraSans/blob/master/Fira_Sans_4_3/Fonts/Fira_Sans_TTF_4301/Normal/Roman/FiraSans-Regular.ttf \
@@ -71,7 +69,10 @@ RUN if [ $(grep MemTotal /proc/meminfo | awk '{print $2}') -ge 2000000 ]; then m
 
 RUN R -e 'update.packages(ask=FALSE, checkBuilt=TRUE)'
 
-RUN apt-get update && apt-get install -y git libxml2-dev cmake
+RUN apt-get update && apt-get install -y git libxml2-dev cmake \
+	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
+	&& rm -rf /var/lib/apt/lists/*
+
 COPY *.r TextMining-Grouping/
 COPY analysis/*.r TextMining-Grouping/analysis/
 COPY common/*.r TextMining-Grouping/common/
