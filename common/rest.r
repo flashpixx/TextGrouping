@@ -65,13 +65,12 @@ textMiningJSON <- function( miningtext ) {
 #* @png (width = 1600, height = 1000)
 somPNG <- function( winedata, dimension=18, iterations=60 ) {
   par( family='firasans' )
-  par(fig=c(0,0.7,0,1))
-  #layout( matrix( c(1,2,1,3), 2, 2, byrow = TRUE ), widths=c(12,3), heights=c(10,2) )
+  par( fig=c(0, 0.7, 0, 1) )
   l_result <- som.wine( gsub("\\\\n","\n", winedata ), dimension, iterations )
   plot( l_result, type = "property", property = getCodes(l_result)[,3], main = "", palette.name = viridis::plasma, tricolor, heatkey = FALSE, shape = "straight", border = NA )
-  par(fig=c(0.7,1,0.5,1), new=TRUE)
+  par( fig=c(0.7, 1, 0.5, 1), new=TRUE )
   plot( l_result, type = "count", main="Node Count", palette.name = viridis::plasma, shape = "straight", border = NA )
-  par(fig=c(0.7,1,0.1,0.5),new=TRUE)
+  par( fig=c(0.7, 1, 0.1, 0.5), new=TRUE )
   plot( l_result, type = "changes", main="Training Progress" )
 }
 
