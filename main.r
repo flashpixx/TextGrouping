@@ -53,7 +53,7 @@ shiny::runApp(
         progress <- shiny::Progress$new(style = "notification")
         tryCatch({
           progress$set(message = "Computing data", value = 0)
-          l_result <- som.wine( input, progress )
+          l_result <- som.wine( input$winedata, input$opt.somdim, input$opt.somiterations, progress )
           progress$set(message = "Rendering plots", value = 0.8)
           output$som <- renderPlot({
             par( family='firasans' )
