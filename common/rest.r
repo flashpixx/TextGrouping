@@ -55,7 +55,13 @@ textMiningJSON <- function( miningtext ) {
   for ( i in 1:length( l_result$cluster ) ) {
     l_cluster[[i]] <- as.vector(l_labels[as.vector(l_result$cluster[[i]]),])
   }
-  paste0(jsonlite::toJSON(l_data, pretty = TRUE, unboxed = TRUE), ",\n", jsonlite::toJSON(l_cluster, pretty = TRUE, unboxed = TRUE))
+  jsonlite::toJSON(
+    list(
+      points=l_data,
+      cluster=l_cluster
+    ),
+    pretty = TRUE, unboxed = TRUE
+  )
 }
 
 #* @post /som/png
@@ -113,10 +119,12 @@ somPDF <- function( winedata, dimension=18, iterations=60 ) {
 #* @html
 somJSON <- function( winedata, dimension=18, iterations=60 ) {
   l_result <- som.wine( gsub("\\\\n","\n", winedata ), dimension, iterations )
-  paste0(
-    jsonlite::toJSON(data.frame(colnames(getCodes(l_result)),getCodes(l_result)), pretty = TRUE, unboxed = TRUE),
-    ",\n",
-    jsonlite::toJSON(list("training progress"=as.vector(l_result$changes)), pretty = TRUE, unboxed = TRUE)
-  )  
+  jsonlite::toJSON(
+    list(
+      results=data.frame(colnames(getCodes(l_result)),getCodes(l_result)),
+      "training progress"=as.vector(l_result$changes)
+    ),
+    pretty = TRUE, unboxed = TRUE
+  )
 }
 
