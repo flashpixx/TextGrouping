@@ -19,7 +19,9 @@ option_list = list(
   make_option( c("-s", "--somdim"), type="integer", default=35, 
                help="som dimension [default = %default]", metavar="integer" ),
   make_option( c("-i", "--somiterations"), type="integer", default=100, 
-               help="som iterations [default = %default]", metavar="integer" )
+               help="som iterations [default = %default]", metavar="integer" ),
+  make_option( "--pointlabelsize", type="double", default=1.75, 
+               help="size of text mining labels [default = %default]", metavar="double" )
 ) 
 
 opt_parser = OptionParser( option_list = option_list )

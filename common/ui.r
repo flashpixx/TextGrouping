@@ -11,7 +11,7 @@ common.ui <- function( opt )
 	                            selectInput("language", label="Stopword Language", list("english", "danish", "german", "dutch", "finnish", "french", "hungarian", "italian", "norwegian", "portuguese", "russian", "spanish", "swedish"), selected = "english", multiple = FALSE, selectize = TRUE)
 	                       ),
 	                       wellPanel(
-	                            sliderInput(inputId = "opt.cex", label = "Point Label Size", min = 0, max = 2, step = 0.25, value = 1)
+	                            sliderInput(inputId = "opt.cex", label = "Point Label Size", min = 0, max = 2, step = 0.25, value = opt$pointlabelsize)
 	                       ),
 	                       actionButton("viewtext", "Visualize")
 	                ),
