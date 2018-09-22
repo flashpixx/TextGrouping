@@ -4,7 +4,7 @@ source( "analysis/ncd.r", local = TRUE )
 build.neighbourhood <- function( inputfile, stopwordlanguage = "english", progress )
 {
     # read csv (first column name, second column keywords)
-    if ( ! missing(progress) ) progress$set(message = "Read CSV", value = 0.2)
+    if ( ! missing(progress) ) progress$set(message = "Parsing text", value = 0.2)
     l_data <- readr::read_delim( inputfile, ":", escape_double = FALSE, col_names = FALSE, na = "empty", comment = "#", trim_ws = TRUE)
     l_data <- l_data[ !(l_data$X2 == ""), ]
 
