@@ -12,17 +12,17 @@ source( "analysis/somwine.r", local = TRUE )
 source( "common/ui.r", local = TRUE )
 
 option_list = list(
-  make_option( c("-p", "--port"), type="integer", default=8080, 
+  make_option( c("-p", "--port"), type="integer", default=8080,
                help="bind to port [default = %default]", metavar="integer" ),
-  make_option( "--shownodename", action="store_true", default=FALSE, 
+  make_option( "--shownodename", action="store_true", default=FALSE,
                help="display node name in title (helpful to distiguish app running in different docker containers) [default = %default]", metavar="character" ),
-  make_option( c("-s", "--somdim"), type="integer", default=35, 
+  make_option( c("-s", "--somdim"), type="integer", default=35,
                help="som dimension [default = %default]", metavar="integer" ),
-  make_option( c("-i", "--somiterations"), type="integer", default=100, 
+  make_option( c("-i", "--somiterations"), type="integer", default=100,
                help="som iterations [default = %default]", metavar="integer" ),
-  make_option( "--pointlabelsize", type="double", default=1.75, 
+  make_option( "--pointlabelsize", type="double", default=1.75,
                help="size of text mining labels [default = %default]", metavar="double" )
-) 
+)
 
 opt_parser = OptionParser( option_list = option_list )
 opt = parse_args( opt_parser )
@@ -41,6 +41,7 @@ shiny::runApp(
             progress$set(message = "Building neighbourhood", value = 0.2)
             l_result <- build.neighbourhood( input$textdata, input$language, progress )
             progress$set(message = "Rendering plots", value = 0.7)
+            par(lwd=2.5)
             apcluster::plot( l_result$cluster, l_result$points, xaxt="n", yaxt="n", cex=input$opt.cex )
             text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=input$opt.cex )
             progress$set(message = "Finished", value = 1)
