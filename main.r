@@ -41,7 +41,7 @@ shiny::runApp(
             progress$set(message = "Building neighbourhood", value = 0.2)
             l_result <- build.neighbourhood( input$textdata, input$language, progress )
             progress$set(message = "Rendering plots", value = 0.7)
-            par(lwd=2.5)
+            par(lwd=3.5)
             apcluster::plot( l_result$cluster, l_result$points, xaxt="n", yaxt="n", cex=input$opt.cex )
             text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=input$opt.cex )
             progress$set(message = "Finished", value = 1)
