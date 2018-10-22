@@ -10,7 +10,7 @@ build.neighbourhood <- function( inputfile, stopwordlanguage = "english", progre
 
 
     # clean-up text data
-    if ( ! missing(progress) ) progress$set(message = "Clean-up text data", value = 0.2)
+    if ( ! missing(progress) ) progress$set(message = "Clean-up text data", value = 0.3)
     l_labels  = as.vector( l_data$X1 )
     l_feature = lapply( as.vector(l_data$X2), tm::stripWhitespace)
     l_feature = lapply( l_feature, tolower )
@@ -33,7 +33,7 @@ build.neighbourhood <- function( inputfile, stopwordlanguage = "english", progre
     #
     # https://www.rdocumentation.org/packages/apcluster/versions/1.4.4/topics/apcluster-package
     # https://cran.r-project.org/web/packages/apcluster/vignettes/apcluster.pdf
-    if ( ! missing(progress) ) progress$set(message = "Grouping with affinity propagation", value = 0.2)
+    if ( ! missing(progress) ) progress$set(message = "Grouping with affinity propagation", value = 0.7)
     return(
         structure(
             class = "neighbourhood",
