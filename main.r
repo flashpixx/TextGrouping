@@ -35,9 +35,9 @@ shiny::runApp(
     server = function( input, output ) {
       observeEvent( input$viewtext, {
         output$neighborhood <- renderPlot({
+          progress <- shiny::Progress$new(style = "notification")
           tryCatch({
             par(family='firasans')
-            progress <- shiny::Progress$new(style = "notification")
             progress$set(message = "Building neighbourhood", value = 0.1)
             l_result <- build.neighbourhood( input$textdata, input$language, progress )
             progress$set(message = "Rendering plots", value = 0.8)
@@ -45,11 +45,11 @@ shiny::runApp(
             apcluster::plot( l_result$cluster, l_result$points, xaxt="n", yaxt="n", cex=input$opt.cex )
             text( l_result$points[,1], l_result$points[,2], l_result$labels, cex=input$opt.cex )
             progress$set(message = "Finished", value = 1)
-            progress$close()
           },
           error = function(e) {
             showNotification( paste(e), duration = 2 )
           })
+          progress$close()
         })
       })
       observeEvent( input$viewwine, {
